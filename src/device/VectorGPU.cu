@@ -65,6 +65,7 @@ VectorGPU& VectorGPU::operator=(const VectorGPU& otherVector)
 // Destructor
 VectorGPU::~VectorGPU()
 {
+    std::cout << "Destructor!!!!!!!!" << std::endl;
     checkCudaErrors(cudaFree(d_mData));
 }
 

@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (pssolver)
 
-#set (CUDA_HOST_COMPILER /usr/bin/gcc-4.9)
+set (CUDA_HOST_COMPILER /usr/bin/gcc-4.9)
 find_package(CUDA REQUIRED)
 
 set (CMAKE_CXX_STANDARD 11)

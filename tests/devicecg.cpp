@@ -14,17 +14,20 @@ int main(int argc, char *argv[])
 
     int n = 5;
 
-    CsrMatrix SparseA(filename);
-    Vector b(n, 1.0);
+    CsrMatrixGPU SparseA(filename);
+    VectorGPU b(n, 1.0);
 
-    LinearSystem<CsrMatrix, Vector> LinSys(SparseA, b);
+    LinearSystem<CsrMatrixGPU, VectorGPU> LinSys(SparseA, b);
 
-    Vector result(n);
+    VectorGPU result(n);
 
     result = LinSys.SolveCG(10, 0.01);
+
+    Vector hostb(n);
+    result.copyToHost(hostb);
     
     cout << "Result: " << endl;
-    cout << result << endl;
+    cout << hostb << endl;
 
 
 }

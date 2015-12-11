@@ -1,1 +1,2 @@
 - Implement efficient matrixcsr-vector gpu
+- Why so many destructor calls in devicegc
