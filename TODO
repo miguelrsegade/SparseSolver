@@ -1,2 +1,8 @@
+- Correct Matrix reading to format +2.00e+00 
+- Python routine to solve the problems to check answers
 - Implement efficient matrixcsr-vector gpu
+- Symmetric matrices only store lower triangular matrix
+    - Fix reading matrix function
+    - Fixing algorithms 
 - Why so many destructor calls in devicegc
+- Unit tests makefile valgrind (memcheck , massif ... )

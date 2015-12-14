@@ -57,29 +57,32 @@ CsrMatrix::CsrMatrix(const string& filename) :
             getline(mFile, line);
             // Check syntax
             if (!regex_match (line, regex("^((?:(?:[1-9][0-9]*\\s+?){2})"
-                                    "-?[0-9.]+(?:\\+|\\-)[0-9]+)")))
+                                    "-?[0-9.]+e(?:\\+|\\-)[0-9]+)")))
             {
                 throw linenumber;
             }
-            // Convert to stream
-            linestream.str(line);
 
+            linestream.str(line);
             // Set the three arrays of the matrix
             index = linenumber - 3;
+            // Read values
+            linestream >> row >> col >> mData[index];
             // 0-index values from 1-index file
-            linestream >> row; row--;
+            row--;
             // we store the rows in the order vector to get then the 
             // neccesary order in row-major order
             order.push_back(row);
-            linestream >> col; col--;
+            // 0-index
+            col--;
             mColInd[index] = col;
-
-            linestream >> mData[index];
 
             linenumber++;
             // We can't exit with while(!mFile.eof) because that raises 
             // an exception
             if(mFile.peek() == EOF) break;
+            // We need to clear the stream error state if not no further reads 
+            // will be made
+            linestream.clear();
         }
 
         // First order the order vector (without saving it) and then
@@ -136,6 +139,7 @@ CsrMatrix::CsrMatrix(const string& filename) :
 // Destructor
 CsrMatrix::~CsrMatrix()
 {
+    cout << "CsrMatrix Destructor !!!" << endl;
     delete[] mData;
     delete[] mColInd;
     delete[] mRowPtr;

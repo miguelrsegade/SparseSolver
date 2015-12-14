@@ -47,6 +47,7 @@ Vector::Vector(int size, double value)
 // Overridden destructor to correctly free memory
 Vector::~Vector()
 {
+   std::cout << "Vector Destructor!!!" << std::endl;
    delete[] mData;
 }
 
