@@ -25,10 +25,10 @@ public:
     int GetNcols() const;
     int GetNnz() const;
 
-    bool isSymmetric();
-    bool isReal();
+    bool isSymmetric() const;
+    bool isReal() const;
 
-    void getProperties();
+    void getProperties() const;
 
     // Virtual functions
     //virtual Matrix& operator=(const Matrix& otherMatrix) = 0;

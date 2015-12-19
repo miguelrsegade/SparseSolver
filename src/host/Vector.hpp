@@ -4,6 +4,7 @@
 class Vector
 {
 friend class VectorGPU;
+friend class Matrix;
 private:
    double* mData; // data stored in vector
    int mSize; // size of vector
@@ -32,6 +33,7 @@ public:
    friend std::ostream& operator<<(std::ostream& os, const Vector& v);
    // Left scalar multiplication
    friend Vector operator*(double a, const Vector& v);
+
 };
 
 

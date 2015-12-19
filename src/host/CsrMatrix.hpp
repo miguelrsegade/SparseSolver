@@ -6,6 +6,7 @@ class CsrMatrix: public Matrix
 {
 
 friend class CsrMatrixGPU;
+
 private: 
     double *mData;
     int *mColInd;

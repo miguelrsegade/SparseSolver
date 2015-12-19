@@ -90,17 +90,17 @@ int Matrix::GetNnz() const
     return mNnz;
 }
 
-bool Matrix::isSymmetric()
+bool Matrix::isSymmetric() const
 {
     return mIsSymmetric;
 }
 
-bool Matrix::isReal()
+bool Matrix::isReal() const 
 {
     return mIsReal;
 }
 
-void Matrix::getProperties()
+void Matrix::getProperties() const
 {
     cout << "Matrix Properties " << endl;
     if (mIsSymmetric)                  

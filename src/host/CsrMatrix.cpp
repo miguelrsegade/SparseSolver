@@ -1,6 +1,7 @@
 #include "CsrMatrix.hpp"
 #include "Vector.hpp"
 #include "auxFuncs.hpp"
+#include "csrmatrix_kernels.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -29,6 +30,7 @@ CsrMatrix::CsrMatrix(const CsrMatrix& otherMatrix) : Matrix(otherMatrix),
    {
         mRowPtr[i] = otherMatrix.mRowPtr[i];
    }
+
 }
 
 CsrMatrix::CsrMatrix(const string& filename) :
@@ -253,16 +255,18 @@ Vector operator*(const CsrMatrix& m, const Vector& v)
     assert(size == m.GetNrows());
     Vector result_vector(size);
 
-    for ( int i = 0; i < size; i++)
+    if (!m.isSymmetric())
     {
-        for ( int k = m.mRowPtr[i]; k < m.mRowPtr[i+1]; k++)
-        {
-            result_vector[i] = result_vector[i] + m.mData[k]*v.Read(m.mColInd[k]);
-        }
+    	nonSymmetric_matVecMul(m.mData, m.mColInd, m.mRowPtr, v,
+               result_vector, size);
+    }
+    if (m.isSymmetric())
+    {
+        Symmetric_matVecMul(m.Data, m.mColInd, m.mRowPtr, v, 
+                result_vector, size);
     }
     // Last row
     return result_vector;
-
 
 }
 
@@ -288,3 +292,4 @@ ostream& operator<<(ostream& os, const CsrMatrix& Mat)
     return os;                                               
 }
                                                              
+

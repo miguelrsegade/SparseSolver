@@ -6,3 +6,4 @@
     - Fixing algorithms 
 - Why so many destructor calls in devicegc
 - Unit tests makefile valgrind (memcheck , massif ... )
+- Fix compiler warnings
