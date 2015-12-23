@@ -1,7 +1,6 @@
 #include "CsrMatrix.hpp"
 #include "Vector.hpp"
 #include "auxFuncs.hpp"
-#include "csrmatrix_kernels.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -253,20 +252,17 @@ Vector operator*(const CsrMatrix& m, const Vector& v)
 {
     int size = v.GetSize();
     assert(size == m.GetNrows());
-    Vector result_vector(size);
+    Vector res(size);
 
-    if (!m.isSymmetric())
+    for ( int i = 0; i < size; i++)
     {
-    	nonSymmetric_matVecMul(m.mData, m.mColInd, m.mRowPtr, v,
-               result_vector, size);
+        for ( int k = m.mRowPtr[i]; k < m.mRowPtr[i+1]; k++)
+        {
+            res[i] = res[i] + m.mData[k]*v.Read(m.mColInd[k]);
+        }
     }
-    if (m.isSymmetric())
-    {
-        Symmetric_matVecMul(m.Data, m.mColInd, m.mRowPtr, v, 
-                result_vector, size);
-    }
-    // Last row
-    return result_vector;
+
+    return res;
 
 }
 
